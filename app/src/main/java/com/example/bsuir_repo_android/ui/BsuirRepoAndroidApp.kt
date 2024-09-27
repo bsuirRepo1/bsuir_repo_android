@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.bsuir_repo_android.model.navigation.DrawerNavItem
 import com.example.bsuir_repo_android.model.navigation.ScreenRoute
+import com.example.bsuir_repo_android.ui.navigation.Navigation
 import kotlinx.coroutines.launch
 
 @Composable

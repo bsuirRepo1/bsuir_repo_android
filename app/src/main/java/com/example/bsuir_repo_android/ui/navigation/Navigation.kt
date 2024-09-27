@@ -1,4 +1,4 @@
-package com.example.bsuir_repo_android.ui
+package com.example.bsuir_repo_android.ui.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
