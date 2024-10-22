@@ -20,6 +20,9 @@ import com.example.bsuir_repo_android.model.navigation.ScreenRoute
 import com.example.bsuir_repo_android.ui.app_screens.ProfileScreen
 import com.example.bsuir_repo_android.ui.app_screens.RepositoriesScreen
 import com.example.bsuir_repo_android.ui.app_screens.UserSearchScreen
+import com.example.bsuir_repo_android.ui.login.BeginScreen
+import com.example.bsuir_repo_android.ui.login.LoginScreen
+import com.example.bsuir_repo_android.ui.login.SignupScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -29,6 +32,46 @@ fun Navigation(
     navController: NavHostController,
     scope: CoroutineScope,
     drawerState: DrawerState,
+) {
+    NavHost(navController = navController, startDestination = ScreenRoute.BeginScreenRoute.route) {
+        composable(route = ScreenRoute.ProfileScreenRoute.route) {
+            AppScaffold(
+                navController = navController,
+                scope = scope,
+                drawerState = drawerState,
+                route = ScreenRoute.ProfileScreenRoute.route,
+            )
+        }
+        composable(route = ScreenRoute.ReposScreenRoute.route) {
+            AppScaffold(navController = navController, scope = scope, drawerState = drawerState, route = ScreenRoute.ReposScreenRoute.route)
+        }
+        composable(route = ScreenRoute.UserSearchScreenRoute.route) {
+            AppScaffold(
+                navController = navController,
+                scope = scope,
+                drawerState = drawerState,
+                route = ScreenRoute.UserSearchScreenRoute.route,
+            )
+        }
+        composable(route = ScreenRoute.BeginScreenRoute.route) {
+            BeginScreen(navController = navController)
+        }
+        composable(route = ScreenRoute.SignupScreen.route) {
+            SignupScreen(navController = navController)
+        }
+        composable(route = ScreenRoute.LoginScreen.route) {
+            LoginScreen(navController = navController)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppScaffold(
+    navController: NavHostController,
+    scope: CoroutineScope,
+    drawerState: DrawerState,
+    route: String,
 ) {
     Scaffold(
         topBar = {
@@ -47,30 +90,28 @@ fun Navigation(
         },
     ) {
             innerPadding ->
-
-        NavHost(navController = navController, startDestination = ScreenRoute.ProfileScreenRoute.route) {
-            composable(route = ScreenRoute.ProfileScreenRoute.route) {
-                ProfileScreen(
-                    navController = navController,
-                    modifier =
-                        Modifier.padding(innerPadding)
-                            .fillMaxSize(),
-                )
-            }
-            composable(route = ScreenRoute.ReposScreenRoute.route) {
-                RepositoriesScreen(
-                    modifier =
-                        Modifier.padding(innerPadding)
-                            .fillMaxSize(),
-                )
-            }
-            composable(route = ScreenRoute.UserSearchScreenRoute.route) {
-                UserSearchScreen(
-                    modifier =
-                        Modifier.padding(innerPadding)
-                            .fillMaxSize(),
-                )
-            }
+        if (route == ScreenRoute.ProfileScreenRoute.route) {
+            ProfileScreen(
+                navController = navController,
+                modifier =
+                    Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+            )
+        } else if (route == ScreenRoute.UserSearchScreenRoute.route) {
+            UserSearchScreen(
+                modifier =
+                    Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+            )
+        } else if (route == ScreenRoute.ReposScreenRoute.route) {
+            RepositoriesScreen(
+                modifier =
+                    Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+            )
         }
     }
 }

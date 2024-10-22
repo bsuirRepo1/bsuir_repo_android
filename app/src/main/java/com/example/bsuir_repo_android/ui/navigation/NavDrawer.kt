@@ -1,4 +1,4 @@
-package com.example.bsuir_repo_android.ui
+package com.example.bsuir_repo_android.ui.navigation
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -29,11 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.bsuir_repo_android.model.navigation.DrawerNavItem
 import com.example.bsuir_repo_android.model.navigation.ScreenRoute
-import com.example.bsuir_repo_android.ui.navigation.Navigation
 import kotlinx.coroutines.launch
 
 @Composable
-fun BsuirRepoAndroidApp() {
+fun NavDrawer() {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
