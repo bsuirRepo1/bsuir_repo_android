@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun UserSearchScreen(modifier: Modifier) {
+fun MainScreen(modifier: Modifier) {
     Text(text = "UserSearchScreen", modifier = modifier)
 }

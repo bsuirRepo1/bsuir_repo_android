@@ -27,4 +27,9 @@
     <string name="account_does_not_exist">Account with that email does not exist</string>
     <string name="couldnt_sign_in">Could not sign in</string>
     <string name="error_snackbar">Error Snackbar</string>
+    <string name="loading">Loading...</string>
+    <string name="loading_failed">Loading failed :(</string>
+    <string name="main">Main</string>
+    <string name="profile">Profile</string>
+    <string name="repos">Repositories</string>
 </resources>

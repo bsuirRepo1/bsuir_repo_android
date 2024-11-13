@@ -4,23 +4,29 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import com.example.bsuir_repo_android.ui.navigation.NavDrawer
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.bsuir_repo_android.ui.theme.Bsuir_repo_androidTheme
+import com.example.bsuir_repo_android.viewModel.AuthState
+import com.example.bsuir_repo_android.viewModel.AuthViewModel
 
-// @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             Bsuir_repo_androidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val my_padding = innerPadding
-                    NavDrawer()
-                    // LoginScreen()
+                navController = rememberNavController()
+                val authViewModel: AuthViewModel =
+                    viewModel(factory = AuthViewModel.Factory)
+
+                CompositionLocalProvider(AuthState provides authViewModel) {
+                    ApplicationSwitcher(navController = navController)
                 }
             }
         }

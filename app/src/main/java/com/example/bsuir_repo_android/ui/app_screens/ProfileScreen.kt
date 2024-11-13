@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.bsuir_repo_android.model.navigation.ScreenRoute
+import com.example.bsuir_repo_android.ui.navigation.ScreenRoute
 
 @Composable
 fun ProfileScreen(
@@ -15,7 +15,7 @@ fun ProfileScreen(
 ) {
     Column(modifier = modifier) {
         Text(text = "ProfileScreen")
-        Button(onClick = { navController.navigate(ScreenRoute.UserSearchScreenRoute.route) }) {
+        Button(onClick = { navController.navigate(ScreenRoute.Main.MainScreen.route) }) {
             Text(text = "Nav to UserSearchScreen")
         }
     }

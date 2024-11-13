@@ -88,4 +88,14 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compiler)
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+
+    // preferences
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 }
