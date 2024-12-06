@@ -1,21 +1,20 @@
 package com.example.bsuir_repo_android.api
 
+import com.example.bsuir_repo_android.model.response.AuthResponse
 import com.example.bsuir_repo_android.model.response.LoginRequest
-import com.example.bsuir_repo_android.model.response.LoginResponse
-import com.example.bsuir_repo_android.model.response.UserReg
-import okhttp3.ResponseBody
-import retrofit2.Call
+import com.example.bsuir_repo_android.model.response.SignUpRequest
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthApiService {
-    @POST("register/")
-    fun register(
-        @Body userReg: UserReg,
-    ): Call<ResponseBody>
+    @POST("register")
+    suspend fun register(
+        @Body signUpRequest: SignUpRequest,
+    ): Response<AuthResponse>
 
-    @POST("login/")
-    fun loginUser(
+    @POST("login")
+    suspend fun loginUser(
         @Body loginRequest: LoginRequest,
-    ): Call<LoginResponse>
+    ): Response<AuthResponse>
 }

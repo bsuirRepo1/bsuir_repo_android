@@ -1,17 +1,13 @@
 package com.example.bsuir_repo_android
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import com.example.bsuir_repo_android.DataStoreProvider.dataStore
 import com.example.bsuir_repo_android.api.AuthApiService
 import com.example.bsuir_repo_android.repositories.AuthRepository
 import com.example.bsuir_repo_android.repositories.NetworkAuthRepository
 import com.example.bsuir_repo_android.repositories.UserRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
 
 interface BsuirRepoAppContainer {
     val authRepository: AuthRepository

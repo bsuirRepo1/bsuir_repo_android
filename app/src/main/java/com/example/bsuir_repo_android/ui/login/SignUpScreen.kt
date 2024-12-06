@@ -28,19 +28,19 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.bsuir_repo_android.R
-import com.example.bsuir_repo_android.model.response.UserReg
 import com.example.bsuir_repo_android.ui.navigation.ScreenRoute
 import com.example.bsuir_repo_android.viewModel.AuthState
 import com.example.bsuir_repo_android.viewModel.UserViewModel
 
 @Composable
-fun SignupScreen(
+fun SignUpScreen(
     navController: NavHostController,
     userViewModel: UserViewModel = viewModel(factory = UserViewModel.Factory),
 ) {
     val authViewModel = AuthState.current
     val state by authViewModel.state.collectAsState()
     val apiState by authViewModel.apiState.collectAsState()
+    val savedUser by userViewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = apiState) {
         if (apiState.isSuccess) {
@@ -60,6 +60,10 @@ fun SignupScreen(
                     .fillMaxSize()
                     .background(color = colorResource(id = R.color.background)),
         ) {
+            Text(
+                text = "${savedUser.email}, ${savedUser.username}, ${savedUser.password}, ${savedUser.password_confirm}",
+                modifier = Modifier.matchParentSize(),
+            )
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -79,9 +83,11 @@ fun SignupScreen(
                     error = apiState.emailEmpty,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                FormTextField(
-                    labelValue = stringResource(id = R.string.username),
-                    fieldType = FieldType.Username,
+                UserTextField(
+                    value = state.username ?: "",
+                    onValueChange = authViewModel::onUsernameChanges,
+                    placeholder = "Enter Username",
+                    error = apiState.usernameEmpty,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 UserTextField(
@@ -91,22 +97,16 @@ fun SignupScreen(
                     error = apiState.passwordEmpty,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                FormTextField(
-                    labelValue = stringResource(id = R.string.repeat_password),
-                    fieldType = FieldType.PasswordConfirm,
+                UserTextField(
+                    value = state.passwordConfirm ?: "",
+                    onValueChange = authViewModel::onPasswordConfirmChanges,
+                    placeholder = "Enter Password Confirmation",
+                    error = apiState.passwordConfirmEmpty,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
                 FormButton(buttonText = stringResource(id = R.string.sign_up), onClick = {
-                    authViewModel.registerUser(
-                        userReg =
-                            UserReg(
-                                email = userViewModel.uiState.value.email,
-                                username = userViewModel.uiState.value.username,
-                                password = userViewModel.uiState.value.password,
-                                password_confirm = userViewModel.uiState.value.password_confirm,
-                            ),
-                    )
+                    authViewModel.authUser()
                 })
                 Spacer(modifier = Modifier.height(8.dp))
                 FormString(

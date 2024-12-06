@@ -29,7 +29,7 @@ import com.example.bsuir_repo_android.ui.app_screens.ProfileScreen
 import com.example.bsuir_repo_android.ui.app_screens.RepositoriesScreen
 import com.example.bsuir_repo_android.ui.login.BeginScreen
 import com.example.bsuir_repo_android.ui.login.LoginScreen
-import com.example.bsuir_repo_android.ui.login.SignupScreen
+import com.example.bsuir_repo_android.ui.login.SignUpScreen
 
 private object Routes {
     // First Graph Route
@@ -60,7 +60,7 @@ sealed class ScreenRoute(val route: String) {
     object Auth : ScreenRoute(Routes.AUTH) {
         object LoginScreen : ScreenRoute(Routes.LOGIN)
 
-        object SignupScreen : ScreenRoute(Routes.REGISTER)
+        object SignUpScreen : ScreenRoute(Routes.REGISTER)
 
         object BeginScreen : ScreenRoute(Routes.BEGIN)
 
@@ -103,9 +103,9 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
         }
 
         composable(
-            route = ScreenRoute.Auth.SignupScreen.route,
+            route = ScreenRoute.Auth.SignUpScreen.route,
         ) {
-            SignupScreen(navController = navController)
+            SignUpScreen(navController = navController)
         }
 
         composable(

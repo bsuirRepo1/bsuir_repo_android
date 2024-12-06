@@ -21,9 +21,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.bsuir_repo_android.R
 import com.example.bsuir_repo_android.ui.navigation.ScreenRoute
+import com.example.bsuir_repo_android.viewModel.AuthState
 
 @Composable
 fun BeginScreen(navController: NavHostController) {
+    val authViewModel = AuthState.current
+
     Box(
         modifier =
             Modifier
@@ -54,12 +57,22 @@ fun BeginScreen(navController: NavHostController) {
             ) {
                 FormButton(
                     buttonText = stringResource(id = R.string.sign_up),
-                    onClick = { navController.navigate(ScreenRoute.Auth.SignupScreen.route) },
+                    onClick = {
+                        if (!authViewModel.state.value.isSignUp) {
+                            authViewModel.toggleAuthMode()
+                        }
+                        navController.navigate(ScreenRoute.Auth.SignUpScreen.route)
+                    },
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 FormButton(
                     buttonText = stringResource(id = R.string.sign_in),
-                    onClick = { navController.navigate(ScreenRoute.Auth.LoginScreen.route) },
+                    onClick = {
+                        if (authViewModel.state.value.isSignUp) {
+                            authViewModel.toggleAuthMode()
+                        }
+                        navController.navigate(ScreenRoute.Auth.LoginScreen.route)
+                    },
                 )
             }
         }

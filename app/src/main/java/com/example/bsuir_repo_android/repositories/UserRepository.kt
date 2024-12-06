@@ -1,5 +1,6 @@
 package com.example.bsuir_repo_android.repositories
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -13,11 +14,13 @@ class UserRepository(private val dataStore: DataStore<Preferences>) {
         val USER_EMAIL = stringPreferencesKey("user_email")
         val USER_NAME = stringPreferencesKey("user_name")
         val USER_PASSWORD = stringPreferencesKey("user_password")
-        val USER_PASSWORD_CONFIRM = stringPreferencesKey("user_password")
+        val USER_PASSWORD_CONFIRM = stringPreferencesKey("user_password_confirm")
     }
 
+    // catch reading errors
     val currentUser: Flow<UserUiState> =
         dataStore.data.map { preferences ->
+            Log.d("UserRepository", "${preferences[USER_NAME]}")
             UserUiState(
                 username = preferences[USER_NAME] ?: "Unknown",
                 email = preferences[USER_EMAIL] ?: "Unknown",
@@ -26,27 +29,27 @@ class UserRepository(private val dataStore: DataStore<Preferences>) {
             )
         }
 
-    suspend fun saveUserName(userName: String) {
+    suspend fun saveUsername(username: String) {
         dataStore.edit { preferences ->
-            preferences[USER_NAME] = userName
+            preferences[USER_NAME] = username
         }
     }
 
-    suspend fun saveUserEmail(userEmail: String) {
+    suspend fun saveUserEmail(email: String) {
         dataStore.edit { preferences ->
-            preferences[USER_EMAIL] = userEmail
+            preferences[USER_EMAIL] = email
         }
     }
 
-    suspend fun saveUserPassword(userPassword: String) {
+    suspend fun saveUserPassword(password: String) {
         dataStore.edit { preferences ->
-            preferences[USER_PASSWORD] = userPassword
+            preferences[USER_PASSWORD] = password
         }
     }
 
-    suspend fun saveUserPasswordConfirm(userPasswordConfirm: String) {
+    suspend fun saveUserPasswordConfirm(password_confirm: String) {
         dataStore.edit { preferences ->
-            preferences[USER_PASSWORD_CONFIRM] = userPasswordConfirm
+            preferences[USER_PASSWORD_CONFIRM] = password_confirm
         }
     }
 }
